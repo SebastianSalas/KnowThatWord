@@ -4,6 +4,8 @@ import java.awt.*;
 public class Header  extends JLabel {
     /**
      * Constructor of the Header class
+     * @autor Jhon Alexander Valencia Hilamo jhon.hilamo@correounivalle.edu.co
+     * @author Janiert Sebastian Salas Castillo janiert.salas@correounivalle.edu.co
      * @param title String that contains Header text
      * @param colorBackground Color object to be assigned for the Header background
      */
