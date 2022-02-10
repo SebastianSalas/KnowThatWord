@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 
 public class FileManager {
 
@@ -8,16 +9,14 @@ public class FileManager {
     private BufferedWriter output;
 
 
-    public String lecturaFile() {
-        String texto="";
-
+    public ArrayList<String> lecturaFile() {
+        ArrayList<String> frases= new ArrayList<String>();
         try {
-            fileReader = new FileReader("src/myProject/files/fileText.txt");
+            fileReader = new FileReader("src/files/diccionario.txt");
             input = new BufferedReader(fileReader);
             String line = input.readLine();
             while(line!=null){
-                texto+=line;
-                texto+="\n";
+                frases.add(line);
                 line=input.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -31,12 +30,12 @@ public class FileManager {
                 e.printStackTrace();
             }
         }
-        return texto;
+        return frases;
     }
 
     public void escribirTexto(String linea){
         try {
-            fileWriter = new FileWriter("src/myProject/files/fileText.txt",true);
+            fileWriter = new FileWriter("src/files/diccionario.txt",true);
             output = new BufferedWriter(fileWriter);
             output.write(linea);
             output.newLine();

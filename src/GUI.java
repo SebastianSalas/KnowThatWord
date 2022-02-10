@@ -9,9 +9,12 @@ import java.awt.*;
  */
 
 // PROBANDO PEPITA XDDDDD
+
 public class GUI extends JFrame {
 
     private Header headerProject;
+    private PanelFrase frase;
+
 
     /**
      * Constructor of GUI class
@@ -37,9 +40,14 @@ public class GUI extends JFrame {
         //Set up JFrame Container's Layout
         //Create Listener Object and Control Object
         //Set up JComponents
-        headerProject = new Header("Header ...", Color.BLACK);
 
-        this.add(headerProject,BorderLayout.NORTH); //Change this line if you change JFrame Container's Layout
+        headerProject = new Header("I Kno That Word", Color.BLACK);
+        this.add(headerProject,BorderLayout.NORTH);
+        frase = new PanelFrase();
+        frase.setFocusable(true);
+        add(frase,BorderLayout.NORTH);
+
+         //Change this line if you change JFrame Container's Layout
     }
 
     /**
@@ -48,6 +56,7 @@ public class GUI extends JFrame {
      *             the program is execute by console.
      */
     public static void main(String[] args){
+
         EventQueue.invokeLater(() -> {
             GUI miProjectGUI = new GUI();
         });
