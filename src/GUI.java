@@ -8,7 +8,7 @@ import java.awt.*;
  * @version v.1.0.0 date:21/11/2021
  */
 
-// PROBANDO PEPITA
+// PROBANDO PEPITA XDDDDD
 public class GUI extends JFrame {
 
     private Header headerProject;
