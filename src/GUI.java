@@ -7,6 +7,8 @@ import java.awt.*;
  * @author Janiert Sebastian Salas Castillo janiert.salas@correounivalle.edu.co
  * @version v.1.0.0 date:21/11/2021
  */
+
+// PROBANDO PEPITA
 public class GUI extends JFrame {
 
     private Header headerProject;
