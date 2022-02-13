@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * This class is used for ...
@@ -14,12 +15,14 @@ public class GUI extends JFrame {
 
     private Header headerProject;
     private PanelFrase frase;
+    private FileManager fileManager;
+    private String nombreUsario;
 
 
     /**
      * Constructor of GUI class
      */
-    public GUI(){
+    public GUI() throws IOException {
         initGUI();
 
         //Default JFrame configuration
@@ -40,7 +43,9 @@ public class GUI extends JFrame {
         //Set up JFrame Container's Layout
         //Create Listener Object and Control Object
         //Set up JComponents
-
+        fileManager = new FileManager();
+        nombreUsario=JOptionPane.showInputDialog("Ingrese su usuario");
+        fileManager.escribirUsuario(nombreUsario);
         headerProject = new Header("I Kno That Word", Color.BLACK);
         this.add(headerProject,BorderLayout.NORTH);
         frase = new PanelFrase();
@@ -58,7 +63,11 @@ public class GUI extends JFrame {
     public static void main(String[] args){
 
         EventQueue.invokeLater(() -> {
-            GUI miProjectGUI = new GUI();
+            try {
+                GUI miProjectGUI = new GUI();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 

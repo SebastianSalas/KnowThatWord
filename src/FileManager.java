@@ -10,20 +10,20 @@ public class FileManager {
 
 
     public ArrayList<String> lecturaFile() {
-        ArrayList<String> frases= new ArrayList<String>();
+        ArrayList<String> frases = new ArrayList<String>();
         try {
             fileReader = new FileReader("src/files/diccionario.txt");
             input = new BufferedReader(fileReader);
             String line = input.readLine();
-            while(line!=null){
+            while (line != null) {
                 frases.add(line);
-                line=input.readLine();
+                line = input.readLine();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
                 input.close();
             } catch (IOException e) {
@@ -33,20 +33,65 @@ public class FileManager {
         return frases;
     }
 
-    public void escribirTexto(String linea){
+    /*
+        public void buscarUsuario(){
+            ArrayList<String> nombreUsuario = new ArrayList<>();
+            var = nombreUsuario.contains(line)
+            if (var == true){
+
+            }else{
+                nombreUsuario.add
+            }
+        }
+        */
+    public ArrayList<String> lecturaUsuario() {
+        ArrayList<String> Nombres = new ArrayList<>();
+
         try {
-            fileWriter = new FileWriter("src/files/diccionario.txt",true);
-            output = new BufferedWriter(fileWriter);
-            output.write(linea);
-            output.newLine();
+            fileReader = new FileReader("src/files/Usuarios.txt");
+            input = new BufferedReader(fileReader);
+            String line = input.readLine();
+            while (line != null) {
+                Nombres.add(line);
+                line = input.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
-                output.close();
+                input.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return Nombres;
+    }
+
+    public void escribirUsuario(String usuario) {
+        ArrayList<String> nombreUsuario = new ArrayList<String>();
+        nombreUsuario = lecturaUsuario();
+
+        Boolean var = nombreUsuario.contains(usuario);
+        if (!(var == true)){
+            try {
+                fileWriter = new FileWriter("src/files/usuarios.txt", true);
+                output = new BufferedWriter(fileWriter);
+                output.write(usuario);
+                output.newLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }else{
+
+        }
+
     }
 }
