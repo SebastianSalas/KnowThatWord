@@ -69,16 +69,29 @@ public class FileManager {
         return Nombres;
     }
 
+    public boolean buscarUsuario(String usuario){
+        ArrayList<String> nombreUsuario = new ArrayList<>();
+        nombreUsuario = lecturaUsuario();
+        for (String e:
+             nombreUsuario) {
+            if (e.substring(2).equals(usuario)){
+                return true;
+
+            }
+        }
+        return false;
+    }
     public void escribirUsuario(String usuario) {
-        ArrayList<String> nombreUsuario = new ArrayList<String>();
+
+        ArrayList<String> nombreUsuario = new ArrayList<>();
         nombreUsuario = lecturaUsuario();
 
-        Boolean var = nombreUsuario.contains(usuario);
+        Boolean var = buscarUsuario(usuario);
         if (!(var == true)){
             try {
                 fileWriter = new FileWriter("src/files/usuarios.txt", true);
                 output = new BufferedWriter(fileWriter);
-                output.write(usuario);
+                output.write("00"+usuario);
                 output.newLine();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -90,8 +103,25 @@ public class FileManager {
                 }
             }
         }else{
-
+            buscarNivel(usuario);
         }
+
+    }
+
+    public void buscarNivel(String usuario){
+        ArrayList<String> nombreUsuario = new ArrayList<>();
+        nombreUsuario = lecturaUsuario();
+
+        for (String e:
+             nombreUsuario) {
+            if(e.substring(2).equals(usuario)){
+                System.out.println(e.substring(0,2));
+            }
+        }
+
+    }
+
+    public void modificarNivel(String nombreUsuario){
 
     }
 }
