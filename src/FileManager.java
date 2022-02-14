@@ -83,9 +83,6 @@ public class FileManager {
     }
     public void escribirUsuario(String usuario) {
 
-        ArrayList<String> nombreUsuario = new ArrayList<>();
-        nombreUsuario = lecturaUsuario();
-
         Boolean var = buscarUsuario(usuario);
         if (!(var == true)){
             try {

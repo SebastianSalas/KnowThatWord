@@ -12,7 +12,6 @@ import java.util.Random;
  * @version v.1.0.0 date:21/11/2021
  */
 
-// PROBANDO PEPITA XDDDDD
 
 public class GUI extends JFrame {
 
@@ -164,9 +163,8 @@ public class GUI extends JFrame {
                 counter++;
                 frase.setStep(1);
                 frase.paintComponent(getGraphics());
-                if(counter<=3){
+                if(counter<10){
                     System.out.println("x");
-                    counter++;
                 }else{
                     iniciar.stop();
                     timer.stop();
@@ -174,7 +172,7 @@ public class GUI extends JFrame {
                 }
             }else{
                 iniciar.start();
-                counter=0;
+                //counter=0;
             }
 
             if (e.getSource()==salir){
