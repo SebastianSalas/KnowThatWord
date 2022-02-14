@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
@@ -17,22 +19,41 @@ public class GUI extends JFrame {
     private PanelFrase frase;
     private FileManager fileManager;
     private String nombreUsario;
-
+    private ImageIcon fondos;
+    private JLabel fondo;
+    private JButton salir,jugar;
+    private Escucha escucha;
+    private Timer timer;
+    private Diccionario palabra= new Diccionario();
 
     /**
      * Constructor of GUI class
      */
     public GUI() throws IOException {
         initGUI();
+        this.setUndecorated(true);
+        fondos= new ImageIcon(getClass().getResource("/resources/fondo.jpg"));
+        fondo= new JLabel(fondos);
 
         //Default JFrame configuration
-        this.setTitle("The Title app");
-        this.setSize(200,100);
+        this.setTitle("I Know That Word");
+        this.setSize(650,500);
         //this.pack();
         this.setResizable(true);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        this.getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
     }
 
     /**
@@ -43,14 +64,35 @@ public class GUI extends JFrame {
         //Set up JFrame Container's Layout
         //Create Listener Object and Control Object
         //Set up JComponents
+        escucha= new Escucha();
+
         fileManager = new FileManager();
         nombreUsario=JOptionPane.showInputDialog("Ingrese su usuario");
         fileManager.escribirUsuario(nombreUsario);
-        headerProject = new Header("I Kno That Word", Color.BLACK);
-        this.add(headerProject,BorderLayout.NORTH);
+        headerProject = new Header("I Know That Word", new Color(255,255,255,0));
+        this.add(headerProject,BorderLayout.PAGE_START);
+
+
         frase = new PanelFrase();
         frase.setFocusable(true);
-        add(frase,BorderLayout.NORTH);
+        add(frase,BorderLayout.CENTER);
+
+        salir = new JButton();
+        ImageIcon img1=new ImageIcon("src/resources/power.png");
+        salir.setIcon(img1);
+        salir.setBorderPainted(false);
+        salir.setContentAreaFilled(false);
+        salir.setFocusable(false);
+        salir.addActionListener(escucha);
+        this.add(salir, BorderLayout.LINE_END);
+
+        jugar = new JButton("Jugar");
+        jugar.addActionListener(escucha);
+        this.add(jugar, BorderLayout.SOUTH);
+
+        timer= new Timer(1000,escucha);
+        timer.start();
+
 
          //Change this line if you change JFrame Container's Layout
     }
@@ -74,7 +116,30 @@ public class GUI extends JFrame {
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha {
+    private class Escucha implements ActionListener {
+        private int counter;
+        public Escucha(){
+            counter=0;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource()==salir){
+                System.exit(0);
+            }
+            if(e.getSource()==timer){
+                counter++;
+                if(counter<=7){
+                    frase.dibujarParte();
+                    System.out.println("contando");
+                }else{
+                    timer.stop();
+                }
+            }else{
+                timer.start();
+                counter=0;
+            }
 
+
+        }
     }
 }

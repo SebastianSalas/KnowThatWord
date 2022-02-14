@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelFrase extends JPanel {
-    public static final int WIDTH=370;
-    public static final int HEIGTH= 200;
+    public static final int WIDTH=650;
+    public static final int HEIGTH= 500;
 
     private Diccionario palabra= new Diccionario();
     private String errores, aciertos,frases,texto;
@@ -11,9 +11,9 @@ public class PanelFrase extends JPanel {
     private Font font;
 
     public PanelFrase(){
-        setBackground(Color.LIGHT_GRAY);
+        setBackground(new Color(255,255,255,0));
         font = new Font(Font.DIALOG,Font.BOLD,27);
-        this.setPreferredSize(new Dimension(WIDTH,HEIGTH));
+        //this.setPreferredSize(new Dimension(WIDTH,HEIGTH));
         step=1;
     }
 
@@ -26,14 +26,17 @@ public class PanelFrase extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setFont(font);
-        switch (step){
-            case 1:
-                g.setColor(Color.MAGENTA);
-                g.drawString(palabra.getFrase(), 20,22);
-                break;
-            default:g.setColor(Color.BLUE);
-                g.drawString("The End!!",50,22);
-                break;
+        if (step>=1){
+            g.setColor(Color.BLACK);
+            g.drawString(palabra.getFrase(), 240,250);
         }
+        /*
+        * switch (step){
+            case 1:
+                g.setColor(Color.BLACK);
+                g.drawString(palabra.getFrase(), 240,250);
+                break;
+        }*/
+
     }
 }
