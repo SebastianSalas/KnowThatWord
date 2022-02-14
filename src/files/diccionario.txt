@@ -6,3 +6,9 @@ Arquero
 Computador
 Teclado
 Escritorio
+Asistencia
+Eje
+Lava
+Fracturar
+Tubos
+Buey

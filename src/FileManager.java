@@ -48,7 +48,7 @@ public class FileManager {
         ArrayList<String> Nombres = new ArrayList<>();
 
         try {
-            fileReader = new FileReader("src/files/Usuarios.txt");
+            fileReader = new FileReader("src/files/usuarios.txt");
             input = new BufferedReader(fileReader);
             String line = input.readLine();
             while (line != null) {
@@ -112,8 +112,7 @@ public class FileManager {
         ArrayList<String> nombreUsuario = new ArrayList<>();
         nombreUsuario = lecturaUsuario();
 
-        for (String e:
-             nombreUsuario) {
+        for (String e: nombreUsuario) {
             if(e.substring(2).equals(usuario)){
                 System.out.println(e.substring(0,2));
             }

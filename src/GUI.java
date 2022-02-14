@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * This class is used for ...
@@ -17,13 +18,14 @@ public class GUI extends JFrame {
 
     private Header headerProject;
     private PanelFrase frase;
+    private JPanel botoncitos,header;
     private FileManager fileManager;
     private String nombreUsario;
     private ImageIcon fondos;
     private JLabel fondo;
-    private JButton salir,jugar;
+    private JButton salir,jugar,bien,mal;
     private Escucha escucha;
-    private Timer timer;
+    private Timer timer,iniciar;
     private Diccionario palabra= new Diccionario();
 
     /**
@@ -43,7 +45,8 @@ public class GUI extends JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        /*
+        * javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         this.getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -52,7 +55,8 @@ public class GUI extends JFrame {
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        );*/
+
 
     }
 
@@ -69,32 +73,42 @@ public class GUI extends JFrame {
         fileManager = new FileManager();
         nombreUsario=JOptionPane.showInputDialog("Ingrese su usuario");
         fileManager.escribirUsuario(nombreUsario);
-        headerProject = new Header("I Know That Word", new Color(255,255,255,0));
-        this.add(headerProject,BorderLayout.PAGE_START);
-
 
         frase = new PanelFrase();
         frase.setFocusable(true);
         add(frase,BorderLayout.CENTER);
 
+
+        headerProject = new Header("I Know That Word",Color.BLACK);
+        this.add(headerProject,BorderLayout.PAGE_START);
         salir = new JButton();
+
         ImageIcon img1=new ImageIcon("src/resources/power.png");
         salir.setIcon(img1);
         salir.setBorderPainted(false);
         salir.setContentAreaFilled(false);
         salir.setFocusable(false);
         salir.addActionListener(escucha);
-        this.add(salir, BorderLayout.LINE_END);
 
+
+        botoncitos=new JPanel();
+        botoncitos.setBackground(Color.CYAN);
         jugar = new JButton("Jugar");
+        bien=new JButton("Si");
+        mal= new JButton("No");
+        botoncitos.add(bien);
+        botoncitos.add(jugar);
+        botoncitos.add(mal);
+        botoncitos.add(salir);
         jugar.addActionListener(escucha);
-        this.add(jugar, BorderLayout.SOUTH);
+        add(botoncitos, BorderLayout.PAGE_END);
 
-        timer= new Timer(1000,escucha);
-        timer.start();
+        timer= new Timer(5000,escucha);
+        iniciar= new Timer(2000,escucha);
+        //timer.start();
 
 
-         //Change this line if you change JFrame Container's Layout
+        //Change this line if you change JFrame Container's Layout
     }
 
     /**
@@ -117,28 +131,55 @@ public class GUI extends JFrame {
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
     private class Escucha implements ActionListener {
-        private int counter;
+        private int counter=0,c2;
+        private Random random;
         public Escucha(){
+            random= new Random();
             counter=0;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource()==salir){
-                System.exit(0);
+
+            if(e.getSource()==jugar){
+                timer.start();
+                System.out.println("INICIANDO");
             }
-            if(e.getSource()==timer){
-                counter++;
-                if(counter<=7){
-                    frase.dibujarParte();
-                    System.out.println("contando");
+
+            /*
+            * if(e.getSource()==timer){
+                c2++;
+                frase.conteo(getGraphics(),c2);
+                if(counter<=4){
+
                 }else{
+                    iniciar.start();
                     timer.stop();
                 }
             }else{
-                timer.start();
+
+            }*/
+
+
+            if(e.getSource()==iniciar){
+                counter++;
+                frase.setStep(1);
+                frase.paintComponent(getGraphics());
+                if(counter<=3){
+                    System.out.println("x");
+                    counter++;
+                }else{
+                    iniciar.stop();
+                    timer.stop();
+                    System.out.println("parar");
+                }
+            }else{
+                iniciar.start();
                 counter=0;
             }
 
+            if (e.getSource()==salir){
+                System.exit(0);
+            }
 
         }
     }

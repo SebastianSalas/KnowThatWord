@@ -11,10 +11,9 @@ public class PanelFrase extends JPanel {
     private Font font;
 
     public PanelFrase(){
-        setBackground(new Color(255,255,255,0));
+        setBackground(Color.CYAN);
         font = new Font(Font.DIALOG,Font.BOLD,27);
-        //this.setPreferredSize(new Dimension(WIDTH,HEIGTH));
-        step=1;
+        step=2;
     }
 
     public void dibujarParte(){
@@ -24,19 +23,41 @@ public class PanelFrase extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         g.setFont(font);
-        if (step>=1){
+
+        /*if (step==1){
             g.setColor(Color.BLACK);
             g.drawString(palabra.getFrase(), 240,250);
-        }
-        /*
-        * switch (step){
+        } */
+
+
+
+        switch (step){
             case 1:
                 g.setColor(Color.BLACK);
-                g.drawString(palabra.getFrase(), 240,250);
+                g.drawString(this.palabra.getFrase(), 240,250);
                 break;
-        }*/
+            case 2:
+                g.setColor(Color.BLACK);
+                g.drawString( "I Know That Word",240,250);
+                break;
+        }
 
+
+
+    }
+
+    public void conteo(Graphics g,int contador){
+        super.paintComponent(g);
+        g.setFont(font);
+        String segundo=""+contador;
+            g.setColor(Color.BLACK);
+            g.drawString( segundo,150,150);
+    }
+
+    public void setStep(int step){
+        this.step=step;
     }
 }
