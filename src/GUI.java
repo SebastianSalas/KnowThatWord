@@ -27,6 +27,7 @@ public class GUI extends JFrame {
     private Timer timer,iniciar;
     private Diccionario palabra= new Diccionario();
     private Integer nivel,palabras;
+    private ModelWords modelWords;
     /**
      * Constructor of GUI class
      */
@@ -68,7 +69,7 @@ public class GUI extends JFrame {
         //Create Listener Object and Control Object
         //Set up JComponents
         escucha= new Escucha();
-
+        modelWords= new ModelWords();
         fileManager = new FileManager();
         nombreUsario=JOptionPane.showInputDialog("Ingrese su usuario");
         fileManager.escribirUsuario(nombreUsario);
@@ -197,6 +198,7 @@ public class GUI extends JFrame {
                     bien.setEnabled(true);
                     System.out.println("parar");
                     JOptionPane.showMessageDialog(null,"Perfecto, ahora verificalas!!");
+                    fileManager.subirNivel();
                 }
 
             }else{
