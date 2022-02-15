@@ -19,7 +19,7 @@ public class GUI extends JFrame {
     private PanelFrase frase;
     private JPanel botoncitos,header;
     private FileManager fileManager;
-    private String nombreUsario;
+    private String nombreUsario,p="";
     private ImageIcon fondos;
     private JLabel fondo;
     private JButton salir,jugar,bien,mal;
@@ -139,11 +139,12 @@ public class GUI extends JFrame {
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
     private class Escucha implements ActionListener {
-        private int counter=0,c2;
+        private int counter;
         private Random random;
         public Escucha(){
             random= new Random();
             counter=0;
+
         }
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -190,11 +191,14 @@ public class GUI extends JFrame {
                 }else{
                     iniciar.stop();
                     timer.stop();
-                    System.out.println("parar");
-                    JOptionPane.showMessageDialog(null,"Perfecto, ahora verificalas!!");
+                }
+                if(counter==palabras) {
                     mal.setEnabled(true);
                     bien.setEnabled(true);
+                    System.out.println("parar");
+                    JOptionPane.showMessageDialog(null,"Perfecto, ahora verificalas!!");
                 }
+
             }else{
                 iniciar.start();
                 //counter=0;
@@ -202,6 +206,13 @@ public class GUI extends JFrame {
 
             if (e.getSource()==salir){
                 System.exit(0);
+            }
+
+            if(e.getSource()==bien){
+            }
+
+            if(e.getSource()==mal){
+
             }
 
         }

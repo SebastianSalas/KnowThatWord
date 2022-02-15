@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Diccionario {
-    private ArrayList<String> diccionario = new ArrayList<String>();
+    public ArrayList<String> diccionario = new ArrayList<String>();
     private ArrayList<String> palabrasRepetidas = new ArrayList<String>();
     private String pal = new String();
 
