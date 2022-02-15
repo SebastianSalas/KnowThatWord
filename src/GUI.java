@@ -26,7 +26,7 @@ public class GUI extends JFrame {
     private Escucha escucha;
     private Timer timer,iniciar;
     private Diccionario palabra= new Diccionario();
-
+    private Integer nivel,palabras;
     /**
      * Constructor of GUI class
      */
@@ -72,6 +72,9 @@ public class GUI extends JFrame {
         fileManager = new FileManager();
         nombreUsario=JOptionPane.showInputDialog("Ingrese su usuario");
         fileManager.escribirUsuario(nombreUsario);
+        nivel = fileManager.buscarNivel(nombreUsario);
+
+
 
         frase = new PanelFrase();
         frase.setFocusable(true);
@@ -139,6 +142,16 @@ public class GUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            switch (nivel){
+                case 1:
+                    palabras=10;
+                    break;
+                case 2:
+                    palabras = 20;
+                    break;
+
+            }
+
 
             if(e.getSource()==jugar){
                 timer.start();
@@ -164,7 +177,7 @@ public class GUI extends JFrame {
                 counter++;
                 frase.setStep(1);
                 frase.paintComponent(getGraphics());
-                if(counter<10){
+                if(counter<palabras){
                     System.out.println("x");
                 }else{
                     iniciar.stop();

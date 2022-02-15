@@ -102,23 +102,24 @@ public class FileManager {
                 }
             }
         }else{
-            buscarNivel(usuario);
+
         }
 
     }
 
-    public void buscarNivel(String usuario){
+    public int buscarNivel(String usuario){
         ArrayList<String> nombreUsuario = new ArrayList<>();
         nombreUsuario = lecturaUsuario();
+        int nivel=1;
 
         for (String e: nombreUsuario) {
             if(e.substring(1).equals(usuario)){
-                System.out.println(e.substring(0,1));
+                nivel =  Integer.valueOf(e.substring(0,1));
             }else if(e.substring(2).equals(usuario)){
-                System.out.println(e.substring(0,2));
+                nivel = Integer.valueOf(e.substring(0,2));
             }
         }
-
+        return nivel;
     }
 
     public void modificarNivel(String nombreUsuario){
