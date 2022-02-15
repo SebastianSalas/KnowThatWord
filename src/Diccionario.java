@@ -1,9 +1,13 @@
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Diccionario {
     private ArrayList<String> diccionario = new ArrayList<String>();
+    private ArrayList<String> palabrasRepetidas = new ArrayList<String>();
+    private String pal = new String();
+
 
     public Diccionario(){
         FileManager fileManager = new FileManager();
@@ -12,6 +16,12 @@ public class Diccionario {
 
     public String getFrase(){
         Random aleatorio = new Random();
-        return diccionario.get(aleatorio.nextInt(diccionario.size()));
+        pal = diccionario.get(aleatorio.nextInt(diccionario.size()));
+        do {
+            pal = diccionario.get(aleatorio.nextInt(diccionario.size()));
+        }while (palabrasRepetidas.contains(pal));
+        palabrasRepetidas.add(pal);
+        System.out.println(palabrasRepetidas);
+        return pal;
     }
 }

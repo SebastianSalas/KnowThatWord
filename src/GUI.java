@@ -103,7 +103,7 @@ public class GUI extends JFrame {
         add(botoncitos, BorderLayout.PAGE_END);
 
         timer= new Timer(5000,escucha);
-        iniciar= new Timer(2000,escucha);
+        iniciar= new Timer(1000,escucha);
         //timer.start();
 
 
