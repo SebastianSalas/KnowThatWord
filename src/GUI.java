@@ -139,6 +139,7 @@ public class GUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+
             if(e.getSource()==jugar){
                 timer.start();
                 System.out.println("INICIANDO");

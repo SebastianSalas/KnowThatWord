@@ -74,9 +74,11 @@ public class FileManager {
         nombreUsuario = lecturaUsuario();
         for (String e:
              nombreUsuario) {
-            if (e.substring(2).equals(usuario)){
+            if (e.substring(1).equals(usuario)){
                 return true;
 
+            }else if(e.substring(2).equals(usuario)){
+                return true;
             }
         }
         return false;
@@ -88,7 +90,7 @@ public class FileManager {
             try {
                 fileWriter = new FileWriter("src/files/usuarios.txt", true);
                 output = new BufferedWriter(fileWriter);
-                output.write("00"+usuario);
+                output.write("1"+usuario);
                 output.newLine();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -110,7 +112,9 @@ public class FileManager {
         nombreUsuario = lecturaUsuario();
 
         for (String e: nombreUsuario) {
-            if(e.substring(2).equals(usuario)){
+            if(e.substring(1).equals(usuario)){
+                System.out.println(e.substring(0,1));
+            }else if(e.substring(2).equals(usuario)){
                 System.out.println(e.substring(0,2));
             }
         }
