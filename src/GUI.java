@@ -97,7 +97,9 @@ public class GUI extends JFrame {
         botoncitos.setBackground(Color.CYAN);
         jugar = new JButton("Jugar");
         bien=new JButton("Si");
+        bien.setEnabled(false);
         mal= new JButton("No");
+        mal.setEnabled(false);
         botoncitos.add(bien);
         botoncitos.add(jugar);
         botoncitos.add(mal);
@@ -128,6 +130,10 @@ public class GUI extends JFrame {
             }
         });
     }
+    public void traerPalabras(){
+        frase.setStep(1);
+        frase.paintComponent(getGraphics());
+    }
 
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
@@ -148,6 +154,9 @@ public class GUI extends JFrame {
                     break;
                 case 2:
                     palabras = 20;
+                    break;
+                case 3:
+                    palabras = 25;
                     break;
 
             }
@@ -175,14 +184,16 @@ public class GUI extends JFrame {
 
             if(e.getSource()==iniciar){
                 counter++;
-                frase.setStep(1);
-                frase.paintComponent(getGraphics());
+                traerPalabras();
                 if(counter<palabras){
                     System.out.println("x");
                 }else{
                     iniciar.stop();
                     timer.stop();
                     System.out.println("parar");
+                    JOptionPane.showMessageDialog(null,"Perfecto, ahora verificalas!!");
+                    mal.setEnabled(true);
+                    bien.setEnabled(true);
                 }
             }else{
                 iniciar.start();
@@ -195,4 +206,6 @@ public class GUI extends JFrame {
 
         }
     }
+
+
 }
