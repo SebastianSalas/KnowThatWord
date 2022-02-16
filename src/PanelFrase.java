@@ -27,21 +27,18 @@ public class PanelFrase extends JPanel {
         super.paintComponent(g);
         g.setFont(font);
 
-        /*if (step==1){
-            g.setColor(Color.BLACK);
-            g.drawString(palabra.getFrase(), 240,250);
-        } */
-
-
-
         switch (step){
             case 1:
                 g.setColor(Color.BLACK);
-                g.drawString(this.palabra.getFrase(), 240,250);
+                g.drawString(this.palabra.getFrase(), 270,250);
                 break;
             case 2:
                 g.setColor(Color.BLACK);
-                g.drawString( "I Know That Word",240,250);
+                g.drawString( "I Know That Word",200,220);
+                break;
+            case 3:
+                g.setColor(Color.BLACK);
+                g.drawString( "Perfecto, ahora veamos si las memorizaste!!",50,250);
                 break;
         }
 

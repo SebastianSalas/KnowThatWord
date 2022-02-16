@@ -21,7 +21,7 @@ public class GUI extends JFrame {
     private FileManager fileManager;
     private String nombreUsario,p="";
     private ImageIcon fondos;
-    private JLabel textoUsuario;
+    private JLabel textoUsuario,aciertos,errores;
     private JButton salir,jugar,bien,mal,calificar;
     private Escucha escucha;
     private Timer timer,iniciar,verificar;
@@ -86,6 +86,10 @@ public class GUI extends JFrame {
 
         botoncitos=new JPanel();
         botoncitos.setBackground(Color.CYAN);
+        aciertos=new JLabel();
+        errores=new JLabel();
+        aciertos.setText("Aciertos: ");
+        errores.setText("Errores: ");
         jugar = new JButton("Jugar");
         bien=new JButton("Si");
         bien.setEnabled(false);
@@ -100,10 +104,12 @@ public class GUI extends JFrame {
         salir.setContentAreaFilled(false);
         salir.setFocusable(false);
         salir.addActionListener(escucha);
+        botoncitos.add(aciertos);
         botoncitos.add(bien);
         botoncitos.add(jugar);
         botoncitos.add(calificar);
         botoncitos.add(mal);
+        botoncitos.add(errores);
         botoncitos.add(salir);
         bien.addActionListener(escucha);
         mal.addActionListener(escucha);
@@ -146,13 +152,14 @@ public class GUI extends JFrame {
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
     private class Escucha implements ActionListener {
-        private int counter,centinela, counter2=0,ver=0;
+        private int counter,centinela, counter2=0,ver=0,errores,aciertos;
         private Random random;
         public Escucha(){
             random= new Random();
             counter=0;
             centinela=1;
-
+            errores=0;
+            aciertos=0;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -208,6 +215,8 @@ public class GUI extends JFrame {
                     bien.setEnabled(true);
                     jugar.setEnabled(false);
                     calificar.setEnabled(true);
+                    frase.setStep(3);
+                    frase.paintComponent(getGraphics());
                 }
             }else{
                 iniciar.start();
@@ -224,6 +233,12 @@ public class GUI extends JFrame {
                 counter2++;
                 traerPalabras();
                 if(counter2<palabras*2){
+                    if(counter2==0|counter2==1){
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Oops, llegaste al limite de tiempo");
+                        errores++;
+                        GUI.this.errores.setText("Errores: "+errores);
+                    }
                 }else{
                     verificar.stop();
                     mal.setEnabled(true);
