@@ -21,21 +21,21 @@ public class GUI extends JFrame {
     private FileManager fileManager;
     private String nombreUsario,p="";
     private ImageIcon fondos;
-    private JLabel fondo;
-    private JButton salir,jugar,bien,mal;
+    private JLabel textoUsuario;
+    private JButton salir,jugar,bien,mal,calificar;
     private Escucha escucha;
-    private Timer timer,iniciar;
+    private Timer timer,iniciar,verificar;
     private Diccionario palabra= new Diccionario();
     private Integer nivel,palabras;
     private ModelWords modelWords;
+    private GUI guiPalabras;
     /**
      * Constructor of GUI class
      */
     public GUI() throws IOException {
         initGUI();
         this.setUndecorated(true);
-        fondos= new ImageIcon(getClass().getResource("/resources/fondo.jpg"));
-        fondo= new JLabel(fondos);
+
 
         //Default JFrame configuration
         this.setTitle("I Know That Word");
@@ -45,18 +45,6 @@ public class GUI extends JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        /*
-        * javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        this.getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );*/
-
 
     }
 
@@ -74,7 +62,7 @@ public class GUI extends JFrame {
         nombreUsario=JOptionPane.showInputDialog("Ingrese su usuario");
         fileManager.escribirUsuario(nombreUsario);
         nivel = fileManager.buscarNivel(nombreUsario);
-
+        guiPalabras=this;
 
 
         frase = new PanelFrase();
@@ -82,16 +70,18 @@ public class GUI extends JFrame {
         add(frase,BorderLayout.CENTER);
 
 
-        headerProject = new Header("I Know That Word",Color.BLACK);
-        this.add(headerProject,BorderLayout.PAGE_START);
-        salir = new JButton();
+        /*headerProject = new Header("I Know That Word",Color.BLACK);
+        this.add(headerProject,BorderLayout.PAGE_START);*/
 
-        ImageIcon img1=new ImageIcon("src/resources/power.png");
-        salir.setIcon(img1);
-        salir.setBorderPainted(false);
-        salir.setContentAreaFilled(false);
-        salir.setFocusable(false);
-        salir.addActionListener(escucha);
+        header= new JPanel();
+        textoUsuario = new JLabel(" Usuario: " + fileManager.lecturaUsuario() + " Nivel: " + fileManager.buscarNivel(nombreUsario));
+        textoUsuario.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+        textoUsuario.setForeground(new Color(7,48,100));
+        textoUsuario.setHorizontalAlignment(JLabel.CENTER);
+        textoUsuario.setVerticalAlignment(JLabel.CENTER);
+        header.add(textoUsuario);
+        add(header,BorderLayout.NORTH);
+
 
 
         botoncitos=new JPanel();
@@ -101,16 +91,29 @@ public class GUI extends JFrame {
         bien.setEnabled(false);
         mal= new JButton("No");
         mal.setEnabled(false);
+        calificar =new JButton ("Calificar");
+        calificar.setEnabled(false);
+        salir = new JButton();
+        ImageIcon img1=new ImageIcon("src/resources/power.png");
+        salir.setIcon(img1);
+        salir.setBorderPainted(false);
+        salir.setContentAreaFilled(false);
+        salir.setFocusable(false);
+        salir.addActionListener(escucha);
         botoncitos.add(bien);
         botoncitos.add(jugar);
+        botoncitos.add(calificar);
         botoncitos.add(mal);
         botoncitos.add(salir);
+        bien.addActionListener(escucha);
+        mal.addActionListener(escucha);
+        calificar.addActionListener(escucha);
         jugar.addActionListener(escucha);
         add(botoncitos, BorderLayout.PAGE_END);
 
-        timer= new Timer(5000,escucha);
         iniciar= new Timer(1000,escucha);
-        //timer.start();
+        verificar=new Timer(7000,escucha);
+        verificar.stop();
 
 
         //Change this line if you change JFrame Container's Layout
@@ -136,15 +139,19 @@ public class GUI extends JFrame {
         frase.paintComponent(getGraphics());
     }
 
+    public void cambiarNivel(){
+
+    }
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
     private class Escucha implements ActionListener {
-        private int counter;
+        private int counter,centinela, counter2=0,ver=0;
         private Random random;
         public Escucha(){
             random= new Random();
             counter=0;
+            centinela=1;
 
         }
         @Override
@@ -160,50 +167,73 @@ public class GUI extends JFrame {
                 case 3:
                     palabras = 25;
                     break;
-
+                case 4:
+                    palabras=30;
+                    break;
+                case 5:
+                    palabras = 35;
+                    break;
+                case 6:
+                    palabras = 40;
+                    break;
+                case 7:
+                    palabras = 50;
+                    break;
+                case 8:
+                    palabras = 60;
+                    break;
+                case 9:
+                    palabras = 70;
+                    break;
+                case 10:
+                    palabras = 100;
+                    break;
             }
-
 
             if(e.getSource()==jugar){
-                timer.start();
+                iniciar.start();
+                verificar.stop();
                 System.out.println("INICIANDO");
+                ver=1;
             }
 
-            /*
-            * if(e.getSource()==timer){
-                c2++;
-                frase.conteo(getGraphics(),c2);
-                if(counter<=4){
-
-                }else{
-                    iniciar.start();
-                    timer.stop();
-                }
-            }else{
-
-            }*/
-
-
-            if(e.getSource()==iniciar){
+            if(e.getSource()==iniciar&&ver==1){
                 counter++;
                 traerPalabras();
                 if(counter<palabras){
-                    System.out.println("x");
                 }else{
                     iniciar.stop();
-                    timer.stop();
-                }
-                if(counter==palabras) {
+                    verificar.stop();
                     mal.setEnabled(true);
                     bien.setEnabled(true);
-                    System.out.println("parar");
-                    JOptionPane.showMessageDialog(null,"Perfecto, ahora verificalas!!");
-                    fileManager.subirNivel();
+                    jugar.setEnabled(false);
+                    calificar.setEnabled(true);
                 }
-
             }else{
                 iniciar.start();
-                //counter=0;
+            }
+
+            if(e.getSource()==calificar){
+                verificar.start();
+                iniciar.stop();
+                System.out.println("INICIANDO 2");
+                ver=2;
+            }
+
+            if(e.getSource()==verificar&&ver==2){
+                counter2++;
+                traerPalabras();
+                if(counter2<palabras*2){
+                }else{
+                    verificar.stop();
+                    mal.setEnabled(true);
+                    bien.setEnabled(true);
+                    jugar.setEnabled(false);
+                    calificar.setEnabled(true);
+                    System.out.println("parar 2");
+                }
+            }else{
+                verificar.start();
             }
 
             if (e.getSource()==salir){
@@ -211,6 +241,10 @@ public class GUI extends JFrame {
             }
 
             if(e.getSource()==bien){
+                if(counter2==0){
+                    JOptionPane.showMessageDialog(null,"pasaste de lvl");
+
+                }
             }
 
             if(e.getSource()==mal){
