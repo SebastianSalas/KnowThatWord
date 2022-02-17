@@ -26,7 +26,7 @@ public class GUI extends JFrame {
     private Escucha escucha;
     private Timer timer,iniciar,verificar;
     private Diccionario palabra= new Diccionario();
-    public int nivel,palabras;
+    public int nivel,palabras,ver;
     private ModelWords modelWords;
     /**
      * Constructor of GUI class
@@ -136,9 +136,15 @@ public class GUI extends JFrame {
             }
         });
     }
-    public void traerPalabras(){
-        frase.setStep(1);
-        frase.paintComponent(getGraphics());
+    public void traerPalabras(int ver){
+        this.ver=ver;
+        if(ver==2){
+            frase.setStep(4);
+            frase.paintComponent(getGraphics());
+        }else if(ver==0){
+            frase.setStep(1);
+            frase.paintComponent(getGraphics());
+        }
     }
 
     public void cambiarNivel(){
@@ -148,7 +154,7 @@ public class GUI extends JFrame {
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
     private class Escucha implements ActionListener {
-        private int counter,centinela, counter2=0,ver=0,errores,aciertos;
+        private int counter,centinela, counter2=0,errores,aciertos;
         private Random random;
         public Escucha(){
             random= new Random();
@@ -156,6 +162,7 @@ public class GUI extends JFrame {
             centinela=1;
             errores=0;
             aciertos=0;
+            ver=0;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -202,7 +209,8 @@ public class GUI extends JFrame {
 
             if(e.getSource()==iniciar&&ver==1){
                 counter++;
-                traerPalabras();
+                frase.setStep(1);
+                frase.paintComponent(getGraphics());
                 if(counter<palabras){
                 }else{
                     iniciar.stop();
@@ -219,7 +227,7 @@ public class GUI extends JFrame {
             }
 
             if(e.getSource()==calificar){
-                fileManager.modificarNivel(nombreUsario);
+                //fileManager.modificarNivel(nombreUsario);
                 verificar.start();
                 iniciar.stop();
                 System.out.println("INICIANDO 2");
@@ -228,7 +236,8 @@ public class GUI extends JFrame {
 
             if(e.getSource()==verificar&&ver==2){
                 counter2++;
-                traerPalabras();
+                frase.setStep(4);
+                frase.paintComponent(getGraphics());
                 if(counter2<palabras*2){
                     if(counter2==0|counter2==1){
                     }else{
@@ -238,6 +247,7 @@ public class GUI extends JFrame {
                     }
                 }else{
                     verificar.stop();
+                    iniciar.stop();
                     mal.setEnabled(true);
                     bien.setEnabled(true);
                     jugar.setEnabled(false);

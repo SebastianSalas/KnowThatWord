@@ -40,18 +40,12 @@ public class PanelFrase extends JPanel {
                 g.setColor(Color.BLACK);
                 g.drawString( "Perfecto, ahora veamos si las memorizaste!!",50,250);
                 break;
+            case 4:
+                g.setColor(Color.BLACK);
+                g.drawString( this.palabra.getFrasesCal(),270,250);
+                break;
         }
 
-
-
-    }
-
-    public void conteo(Graphics g,int contador){
-        super.paintComponent(g);
-        g.setFont(font);
-        String segundo=""+contador;
-            g.setColor(Color.BLACK);
-            g.drawString( segundo,150,150);
     }
 
     public void setStep(int step){
