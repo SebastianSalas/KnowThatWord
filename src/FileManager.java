@@ -8,7 +8,6 @@ public class FileManager {
     private BufferedReader input;
     private FileWriter fileWriter;
     private BufferedWriter output;
-    private int nivel;
     private FileWriter fileWriter2;
     private BufferedWriter output2;
     private List<String> lista;
@@ -90,39 +89,7 @@ public class FileManager {
         }
         return false;
     }
-
-    /*
-    public void subirNivel() {
-        ArrayList<String> nombreUsuario = new ArrayList<>();
-        nombreUsuario = lecturaUsuario();
-        lista = new ArrayList<String>();
-
-        if(nivel==10){
-        }else{
-            nivel++;
-            try {
-                fileWriter2 = new FileWriter("src/files/usuarios.txt",false);
-                output2= new BufferedWriter(fileWriter2);
-                output2.write("");
-                output2.close();
-                for(int i=0;i<lista.size();i++){
-                    fileWriter = new FileWriter("src/files/usuarios.txt",true);
-                    output= new BufferedWriter(fileWriter);
-                    if(lista.get(i).substring(0,nombreUsuario.get(i).lastIndexOf("")).equalsIgnoreCase("alex")){
-                        listaUsuarios.set(i, nivel);
-                    }
-                    output.write(String.valueOf(listaUsuarios.get(i)));
-                    output.newLine();
-                    output.close();
-                    System.out.println("subiste de lvl");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-    git*/
+    
     public void escribirUsuario(String usuario) {
 
         Boolean var = buscarUsuario(usuario);
@@ -162,8 +129,38 @@ public class FileManager {
         return nivel;
     }
 
-    public void modificarNivel(String nombreUsuario){
+    public void modificarNivel(String usuario){
+        Integer nivel = buscarNivel(usuario);
+        ArrayList<String> nombreUsuario = new ArrayList<>();
+        nombreUsuario = lecturaUsuario();
+        String antes = nivel.toString();
+        if(nivel==10){
+        }else{
+            nivel++;
+            try {
+                fileWriter2 = new FileWriter("src/files/usuarios.txt",false);
+                output2= new BufferedWriter(fileWriter2);
+                output2.write("");
+                output2.close();
+                for (String e:
+                        nombreUsuario) {
+                    fileWriter = new FileWriter("src/files/usuarios.txt",true);
+                    output= new BufferedWriter(fileWriter);
+                    if(e.substring(1).equals(usuario)){
+                        output.write(e.replace(antes,nivel.toString()));
+                        output.newLine();
+                        output.close();
+                    }else{
+                        output.write(e);
+                        output.newLine();
+                        output.close();
+                    }
 
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

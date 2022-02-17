@@ -219,6 +219,7 @@ public class GUI extends JFrame {
             }
 
             if(e.getSource()==calificar){
+                fileManager.modificarNivel(nombreUsario);
                 verificar.start();
                 iniciar.stop();
                 System.out.println("INICIANDO 2");
