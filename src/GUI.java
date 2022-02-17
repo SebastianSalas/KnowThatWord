@@ -19,16 +19,15 @@ public class GUI extends JFrame {
     private PanelFrase frase;
     private JPanel botoncitos,header;
     private FileManager fileManager;
-    private String nombreUsario,p="";
+    public static String nombreUsario,p="";
     private ImageIcon fondos;
     private JLabel textoUsuario,aciertos,errores;
     private JButton salir,jugar,bien,mal,calificar;
     private Escucha escucha;
     private Timer timer,iniciar,verificar;
     private Diccionario palabra= new Diccionario();
-    private Integer nivel,palabras;
+    public int nivel,palabras;
     private ModelWords modelWords;
-    private GUI guiPalabras;
     /**
      * Constructor of GUI class
      */
@@ -62,8 +61,6 @@ public class GUI extends JFrame {
         nombreUsario=JOptionPane.showInputDialog("Ingrese su usuario");
         fileManager.escribirUsuario(nombreUsario);
         nivel = fileManager.buscarNivel(nombreUsario);
-        guiPalabras=this;
-
 
         frase = new PanelFrase();
         frase.setFocusable(true);
@@ -74,14 +71,13 @@ public class GUI extends JFrame {
         this.add(headerProject,BorderLayout.PAGE_START);*/
 
         header= new JPanel();
-        textoUsuario = new JLabel(" Usuario: " + fileManager.lecturaUsuario() + " Nivel: " + fileManager.buscarNivel(nombreUsario));
+        textoUsuario = new JLabel("Usuario: " + nombreUsario +"         "+ " Nivel: " + fileManager.buscarNivel(nombreUsario));
         textoUsuario.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        textoUsuario.setForeground(new Color(7,48,100));
+        textoUsuario.setForeground(new Color(0,0,0));
         textoUsuario.setHorizontalAlignment(JLabel.CENTER);
         textoUsuario.setVerticalAlignment(JLabel.CENTER);
         header.add(textoUsuario);
         add(header,BorderLayout.NORTH);
-
 
 
         botoncitos=new JPanel();
@@ -256,14 +252,9 @@ public class GUI extends JFrame {
             }
 
             if(e.getSource()==bien){
-                if(counter2==0){
-                    JOptionPane.showMessageDialog(null,"pasaste de lvl");
-
-                }
             }
 
             if(e.getSource()==mal){
-
             }
 
         }
