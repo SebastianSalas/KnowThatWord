@@ -26,7 +26,7 @@ public class GUI extends JFrame {
     private Escucha escucha;
     private Timer timer,iniciar,verificar;
     private Diccionario palabra= new Diccionario();
-    public int nivel,palabras,ver;
+    public int nivel,palabras,ver,palabras2;
     private ModelWords modelWords;
     /**
      * Constructor of GUI class
@@ -114,7 +114,7 @@ public class GUI extends JFrame {
         add(botoncitos, BorderLayout.PAGE_END);
 
         iniciar= new Timer(1000,escucha);
-        verificar=new Timer(7000,escucha);
+        verificar=new Timer(5000,escucha);
         verificar.stop();
 
 
@@ -154,7 +154,7 @@ public class GUI extends JFrame {
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
     private class Escucha implements ActionListener {
-        private int counter,centinela, counter2=0,errores,aciertos;
+        private int counter,centinela, counter2=0,errores,aciertos,c3;
         private Random random;
         public Escucha(){
             random= new Random();
@@ -163,6 +163,7 @@ public class GUI extends JFrame {
             errores=0;
             aciertos=0;
             ver=0;
+            c3=0;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -170,33 +171,43 @@ public class GUI extends JFrame {
             switch (nivel){
                 case 1:
                     palabras=10;
+                    palabras2=20;
                     break;
                 case 2:
                     palabras = 20;
+                    palabras2=40;
                     break;
                 case 3:
                     palabras = 25;
+                    palabras2=50;
                     break;
                 case 4:
                     palabras=30;
+                    palabras2=60;
                     break;
                 case 5:
                     palabras = 35;
+                    palabras2=70;
                     break;
                 case 6:
                     palabras = 40;
+                    palabras2=80;
                     break;
                 case 7:
                     palabras = 50;
+                    palabras2=100;
                     break;
                 case 8:
                     palabras = 60;
+                    palabras2=120;
                     break;
                 case 9:
                     palabras = 70;
+                    palabras2=140;
                     break;
                 case 10:
                     palabras = 100;
+                    palabras2=200;
                     break;
             }
 
@@ -235,10 +246,11 @@ public class GUI extends JFrame {
             }
 
             if(e.getSource()==verificar&&ver==2){
+                frase.setI(counter2);
                 counter2++;
                 frase.setStep(4);
                 frase.paintComponent(getGraphics());
-                if(counter2<palabras*2){
+                if(counter2<palabras2){
                     if(counter2==0|counter2==1){
                     }else{
                         JOptionPane.showMessageDialog(null,"Oops, llegaste al limite de tiempo");

@@ -8,7 +8,7 @@ public class Diccionario {
     private ArrayList<String> palabrasCalificar = new ArrayList<String>();
     private ArrayList<String> palabrasCalificar2 = new ArrayList<String>();
     private String pal = new String();
-    private String pal2 = new String();
+    //private String pal2 = new String();
     private String pal3 = new String();
 
 
@@ -28,9 +28,28 @@ public class Diccionario {
         return pal;
     }
 
+    public String getFrasenuevas(){
+        Random aleatorio= new Random();
+
+        pal=diccionario.get(aleatorio.nextInt(diccionario.size()));
+        return pal;
+
+    }
+
     public void getFrasesCalificar(){
         Random aleatorio = new Random();
-        pal = diccionario.get(aleatorio.nextInt(diccionario.size()));
+        String pal2;
+        //System.out.println(palabrasRepetidas);
+        palabrasCalificar=palabrasRepetidas;
+        int tam=palabrasRepetidas.size();
+        for(int i=0;i<tam;i++){
+            do{
+                pal2=getFrasenuevas();
+            }while (palabrasRepetidas.contains(pal2));
+            palabrasCalificar.add(pal2);
+        }
+        System.out.println(palabrasCalificar);
+        /*pal = diccionario.get(aleatorio.nextInt(diccionario.size()));
         pal2 = palabrasRepetidas.get(aleatorio.nextInt(palabrasRepetidas.size()));
         //pal3 = palabrasCalificar.get(aleatorio.nextInt(palabrasCalificar.size()));
         do{
@@ -41,12 +60,15 @@ public class Diccionario {
         palabrasCalificar.add(pal2);
         palabrasCalificar.add(pal);
         //System.out.println(palabrasCalificar);
+
+        */
     }
 
-    public String getFrasesCal(){
-
+    public String getFrasesCal(int i){
         Random aleatorio= new Random();
-        getFrasesCalificar();
+        if (i<=0) {
+            getFrasesCalificar();
+        }
         pal3 = palabrasCalificar.get(aleatorio.nextInt(palabrasCalificar.size()));
         do {
             pal3 = palabrasCalificar.get(aleatorio.nextInt(palabrasCalificar.size()));

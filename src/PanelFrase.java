@@ -9,11 +9,17 @@ public class PanelFrase extends JPanel {
     private String errores, aciertos,frases,texto;
     private int step;
     private Font font;
+    public static int i;
 
     public PanelFrase(){
         setBackground(Color.CYAN);
         font = new Font(Font.DIALOG,Font.BOLD,27);
         step=2;
+    }
+
+    public int setI(int i){
+        this.i=i;
+        return this.i;
     }
 
     public void dibujarParte(){
@@ -42,7 +48,7 @@ public class PanelFrase extends JPanel {
                 break;
             case 4:
                 g.setColor(Color.BLACK);
-                g.drawString( this.palabra.getFrasesCal(),270,250);
+                g.drawString( this.palabra.getFrasesCal(i),270,250);
                 break;
         }
 
