@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelFrase extends JPanel {
-    public static final int WIDTH=650;
-    public static final int HEIGTH= 500;
 
     private Diccionario palabra= new Diccionario();
     private String errores, aciertos,frases,texto;
@@ -52,7 +50,11 @@ public class PanelFrase extends JPanel {
                 break;
         }
 
+
     }
+
+
+
 
     public void setStep(int step){
         this.step=step;

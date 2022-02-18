@@ -17,17 +17,21 @@ public class GUI extends JFrame {
 
     private Header headerProject;
     private PanelFrase frase;
-    private JPanel botoncitos,header;
+    private JPanel botoncitos,arriba;
     private FileManager fileManager;
     public static String nombreUsario,p="";
     private ImageIcon fondos;
     private JLabel textoUsuario,aciertos,errores;
-    private JButton salir,jugar,bien,mal,calificar;
+    private JButton salir,jugar,bien,mal,calificar,ayuda;
     private Escucha escucha;
     private Timer timer,iniciar,verificar;
     private Diccionario palabra= new Diccionario();
     public int nivel,palabras,ver,palabras2;
     private ModelWords modelWords;
+    private String MENSAJE_INICIO = "El juego trata de probar tu memoria\n" +
+            "Se te presentaran cierto numero de palabras, las cuales tendrás 5 segundos en pantalla"+"\nluego desaparece y aparece la siguiente, debes memorizar las  palabras que mas puedas.\n" +"Despues de esto, se te presentara un listado con el doble de palabras que se mostraron y por cada palabra debes indicar \n" +
+            "si la palabras estaba o no contenida en el listado a memorizar y tendras 7 segundos\n" +
+            "para responder, en caso de no hacerlo se tomara como un error";
     /**
      * Constructor of GUI class
      */
@@ -66,19 +70,14 @@ public class GUI extends JFrame {
         frase.setFocusable(true);
         add(frase,BorderLayout.CENTER);
 
-
-        /*headerProject = new Header("I Know That Word",Color.BLACK);
-        this.add(headerProject,BorderLayout.PAGE_START);*/
-
-        header= new JPanel();
-        textoUsuario = new JLabel("Usuario: " + nombreUsario +"         "+ " Nivel: " + fileManager.buscarNivel(nombreUsario));
+        arriba= new JPanel();
+        arriba.setBackground(Color.CYAN);
+        textoUsuario = new JLabel();
+        textoUsuario.setText("Usuario: " + nombreUsario +"         "+ " Nivel: " + fileManager.buscarNivel(nombreUsario));
         textoUsuario.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         textoUsuario.setForeground(new Color(0,0,0));
-        textoUsuario.setHorizontalAlignment(JLabel.CENTER);
-        textoUsuario.setVerticalAlignment(JLabel.CENTER);
-        header.add(textoUsuario);
-        add(header,BorderLayout.NORTH);
-
+        arriba.add(textoUsuario);
+        add(arriba,BorderLayout.PAGE_START);
 
         botoncitos=new JPanel();
         botoncitos.setBackground(Color.CYAN);
@@ -100,6 +99,14 @@ public class GUI extends JFrame {
         salir.setContentAreaFilled(false);
         salir.setFocusable(false);
         salir.addActionListener(escucha);
+        ayuda = new JButton();
+        ImageIcon img2=new ImageIcon("src/resources/question.png");
+        ayuda.setIcon(img2);
+        ayuda.setBorderPainted(false);
+        ayuda.setContentAreaFilled(false);
+        ayuda.setFocusable(false);
+        ayuda.addActionListener(escucha);
+        botoncitos.add(ayuda);
         botoncitos.add(aciertos);
         botoncitos.add(bien);
         botoncitos.add(jugar);
@@ -136,16 +143,6 @@ public class GUI extends JFrame {
             }
         });
     }
-    public void traerPalabras(int ver){
-        this.ver=ver;
-        if(ver==2){
-            frase.setStep(4);
-            frase.paintComponent(getGraphics());
-        }else if(ver==0){
-            frase.setStep(1);
-            frase.paintComponent(getGraphics());
-        }
-    }
 
     public void cambiarNivel(){
 
@@ -154,7 +151,7 @@ public class GUI extends JFrame {
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
     private class Escucha implements ActionListener {
-        private int counter,centinela, counter2=0,errores,aciertos,c3;
+        private int counter,centinela, counter2=0,errores,aciertos,c3,aciertosp;
         private Random random;
         public Escucha(){
             random= new Random();
@@ -172,42 +169,52 @@ public class GUI extends JFrame {
                 case 1:
                     palabras=10;
                     palabras2=20;
+                    aciertosp=(70*palabras)/100;
                     break;
                 case 2:
                     palabras = 20;
                     palabras2=40;
+                    aciertosp=(70*palabras)/100;
                     break;
                 case 3:
                     palabras = 25;
                     palabras2=50;
+                    aciertosp=(75*palabras)/100;
                     break;
                 case 4:
                     palabras=30;
                     palabras2=60;
+                    aciertosp=(80*palabras)/100;
                     break;
                 case 5:
                     palabras = 35;
                     palabras2=70;
+                    aciertosp=(80*palabras)/100;
                     break;
                 case 6:
                     palabras = 40;
                     palabras2=80;
+                    aciertosp=(85*palabras)/100;
                     break;
                 case 7:
                     palabras = 50;
                     palabras2=100;
+                    aciertosp=(90*palabras)/100;
                     break;
                 case 8:
                     palabras = 60;
                     palabras2=120;
+                    aciertosp=(90*palabras)/100;
                     break;
                 case 9:
                     palabras = 70;
                     palabras2=140;
+                    aciertosp=(95*palabras)/100;
                     break;
                 case 10:
                     palabras = 100;
                     palabras2=200;
+                    aciertosp=(100*palabras)/100;
                     break;
             }
 
@@ -215,6 +222,7 @@ public class GUI extends JFrame {
                 iniciar.start();
                 verificar.stop();
                 System.out.println("INICIANDO");
+                jugar.setEnabled(false);
                 ver=1;
             }
 
@@ -222,7 +230,7 @@ public class GUI extends JFrame {
                 counter++;
                 frase.setStep(1);
                 frase.paintComponent(getGraphics());
-                if(counter<palabras){
+                if(counter<=palabras){
                 }else{
                     iniciar.stop();
                     verificar.stop();
@@ -238,7 +246,6 @@ public class GUI extends JFrame {
             }
 
             if(e.getSource()==calificar){
-                //fileManager.modificarNivel(nombreUsario);
                 verificar.start();
                 iniciar.stop();
                 System.out.println("INICIANDO 2");
@@ -250,12 +257,24 @@ public class GUI extends JFrame {
                 counter2++;
                 frase.setStep(4);
                 frase.paintComponent(getGraphics());
-                if(counter2<palabras2){
+                calificar.setEnabled(false);
+
+                if(counter2<=palabras2){
                     if(counter2==0|counter2==1){
                     }else{
                         JOptionPane.showMessageDialog(null,"Oops, llegaste al limite de tiempo");
                         errores++;
                         GUI.this.errores.setText("Errores: "+errores);
+                        System.out.println(errores+" "+(palabras-aciertosp));
+                        if(errores==palabras-aciertosp){
+                            JOptionPane.showMessageDialog(null,"Has perdido");
+                            iniciar.stop();
+                            verificar.stop();
+                            frase.setStep(2);
+                            frase.paintComponent(getGraphics());
+                            add(arriba,BorderLayout.PAGE_START);
+                            GUI.this.errores.setText("Errores: ");
+                        }
                     }
                 }else{
                     verificar.stop();
@@ -265,13 +284,22 @@ public class GUI extends JFrame {
                     jugar.setEnabled(false);
                     calificar.setEnabled(true);
                     System.out.println("parar 2");
+                    fileManager.modificarNivel(nombreUsario);
+                    textoUsuario.setText("Usuario: " + nombreUsario +"         "+ " Nivel: " + fileManager.buscarNivel(nombreUsario));
+                    calificar.setEnabled(true);
                 }
             }else{
                 verificar.start();
             }
 
+
+
             if (e.getSource()==salir){
                 System.exit(0);
+            }
+
+            if (e.getSource()==ayuda){
+                JOptionPane.showMessageDialog(null, MENSAJE_INICIO);
             }
 
             if(e.getSource()==bien){
