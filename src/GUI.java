@@ -110,7 +110,7 @@ public class GUI extends JFrame {
         botoncitos.add(aciertos);
         botoncitos.add(bien);
         botoncitos.add(jugar);
-        botoncitos.add(calificar);
+        //botoncitos.add(calificar);
         botoncitos.add(mal);
         botoncitos.add(errores);
         botoncitos.add(salir);
@@ -240,18 +240,25 @@ public class GUI extends JFrame {
                     calificar.setEnabled(true);
                     frase.setStep(3);
                     frase.paintComponent(getGraphics());
+
+                    JOptionPane.showMessageDialog(null,"Veamos si las memorizaste");
+                    verificar.start();
+                    ver=2;
+
                 }
             }else{
                 iniciar.start();
             }
 
+            /*
             if(e.getSource()==calificar){
                 verificar.start();
                 iniciar.stop();
                 System.out.println("INICIANDO 2");
-                ver=2;
+
             }
 
+             */
             if(e.getSource()==verificar&&ver==2){
                 frase.setI(counter2);
                 counter2++;
