@@ -121,7 +121,7 @@ public class GUI extends JFrame {
     add(botoncitos, BorderLayout.PAGE_END);
 
     iniciar= new Timer(1000,escucha);
-    verificar=new Timer(8000,escucha);
+    verificar=new Timer(5000,escucha);
     verificar.stop();
 
 
@@ -144,9 +144,6 @@ public class GUI extends JFrame {
     });
   }
 
-  public void cambiarNivel(){
-
-  }
   /**
    * inner class that extends an Adapter Class or implements Listeners used by GUI class
    */
@@ -245,21 +242,19 @@ public class GUI extends JFrame {
           JOptionPane.showMessageDialog(null,"Veamos si las memorizaste");
           verificar.start();
           ver=2;
-
         }
       }else{
         iniciar.start();
       }
-
-            /*
-            if(e.getSource()==calificar){
-                verificar.start();
-                iniciar.stop();
-                System.out.println("INICIANDO 2");
-
+      /*
+        if(e.getSource()==calificar){
+        verificar.start();
+        iniciar.stop();
+        System.out.println("INICIANDO 2");
             }
+      */
 
-             */
+
       if(e.getSource()==verificar&&ver==2){
         frase.setI(counter2);
         System.out.println(counter2);
@@ -267,37 +262,36 @@ public class GUI extends JFrame {
         frase.setStep(4);
         frase.paintComponent(getGraphics());
         calificar.setEnabled(false);
-        if(counter2<=palabras2){
-          if(palabra.verificarPasoNivel(aciertosp, nombreUsario)){
-            fileManager.modificarNivel(nombreUsario);
-            JOptionPane.showMessageDialog(null,"GANASTE!! HAS PASADO DE NIVEL");
-            iniciar.stop();
-            verificar.stop();
-            frase.setStep(2);
-            frase.paintComponent(getGraphics());
-            add(arriba,BorderLayout.PAGE_START);
-            GUI.this.errores.setText("Errores: ");
-            GUI.this.errores.setText("Aciertos: ");
-          }
+        System.out.println(counter2);
+        if(counter2<palabras2){
           if(counter2==0|counter2==1){
-            System.out.println("probando que es esto");
-          }else{
-
           }
         }else{
           //subirnivel
-
-
           verificar.stop();
           iniciar.stop();
-          mal.setEnabled(true);
-          bien.setEnabled(true);
-          jugar.setEnabled(false);
-          calificar.setEnabled(true);
           System.out.println("parar 2");
-          fileManager.modificarNivel(nombreUsario);
-          textoUsuario.setText("Usuario: " + nombreUsario +"         "+ " Nivel: " + fileManager.buscarNivel(nombreUsario));
-          calificar.setEnabled(true);
+          if(aciertos>=aciertosp&&counter2==(palabras2)){
+            palabra.verificarPasoNivel(aciertosp, nombreUsario);
+            fileManager.modificarNivel(nombreUsario);
+            JOptionPane.showMessageDialog(null,"GANASTE!! HAS PASADO DE NIVEL");
+            GUI.this.errores.setText("Errores: ");
+            GUI.this.aciertos.setText("Aciertos: ");
+            ver=0;
+            counter=0;
+            counter2=0;
+            iniciar.stop();
+            verificar.stop();
+            palabra.Limpiar();
+            mal.setEnabled(false);
+            bien.setEnabled(false);
+            jugar.setEnabled(true);
+            calificar.setEnabled(false);
+            frase.setStep(2);
+            frase.paintComponent(getGraphics());
+            textoUsuario.setText("Usuario: " + nombreUsario +"       "+ " Nivel: " + fileManager.buscarNivel(nombreUsario));
+
+          }
         }
       }else{
         verificar.start();
