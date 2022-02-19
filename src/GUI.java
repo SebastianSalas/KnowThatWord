@@ -165,58 +165,7 @@ public class GUI extends JFrame {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-      switch (nivel){
-        case 1:
-          palabras=10;
-          palabras2=20;
-          aciertosp=(70*palabras)/100;
-          break;
-        case 2:
-          palabras = 20;
-          palabras2=40;
-          aciertosp=(70*palabras)/100;
-          break;
-        case 3:
-          palabras = 25;
-          palabras2=50;
-          aciertosp=(75*palabras)/100;
-          break;
-        case 4:
-          palabras=30;
-          palabras2=60;
-          aciertosp=(80*palabras)/100;
-          break;
-        case 5:
-          palabras = 35;
-          palabras2=70;
-          aciertosp=(80*palabras)/100;
-          break;
-        case 6:
-          palabras = 40;
-          palabras2=80;
-          aciertosp=(85*palabras)/100;
-          break;
-        case 7:
-          palabras = 50;
-          palabras2=100;
-          aciertosp=(90*palabras)/100;
-          break;
-        case 8:
-          palabras = 60;
-          palabras2=120;
-          aciertosp=(90*palabras)/100;
-          break;
-        case 9:
-          palabras = 70;
-          palabras2=140;
-          aciertosp=(95*palabras)/100;
-          break;
-        case 10:
-          palabras = 100;
-          palabras2=200;
-          aciertosp=(100*palabras)/100;
-          break;
-      }
+
 
       if(e.getSource()==jugar){
         iniciar.start();
@@ -224,6 +173,58 @@ public class GUI extends JFrame {
         System.out.println("INICIANDO");
         jugar.setEnabled(false);
         ver=1;
+        switch (nivel){
+          case 1:
+            palabras=10;
+            palabras2=20;
+            aciertosp=(70*palabras)/100;
+            break;
+          case 2:
+            palabras = 20;
+            palabras2=40;
+            aciertosp=(70*palabras)/100;
+            break;
+          case 3:
+            palabras = 25;
+            palabras2=50;
+            aciertosp=(75*palabras)/100;
+            break;
+          case 4:
+            palabras=30;
+            palabras2=60;
+            aciertosp=(80*palabras)/100;
+            break;
+          case 5:
+            palabras = 35;
+            palabras2=70;
+            aciertosp=(80*palabras)/100;
+            break;
+          case 6:
+            palabras = 40;
+            palabras2=80;
+            aciertosp=(85*palabras)/100;
+            break;
+          case 7:
+            palabras = 50;
+            palabras2=100;
+            aciertosp=(90*palabras)/100;
+            break;
+          case 8:
+            palabras = 60;
+            palabras2=120;
+            aciertosp=(90*palabras)/100;
+            break;
+          case 9:
+            palabras = 70;
+            palabras2=140;
+            aciertosp=(95*palabras)/100;
+            break;
+          case 10:
+            palabras = 100;
+            palabras2=200;
+            aciertosp=(100*palabras)/100;
+            break;
+        }
       }
 
       if(e.getSource()==iniciar&&ver==1){
@@ -265,15 +266,7 @@ public class GUI extends JFrame {
         frase.setStep(4);
         frase.paintComponent(getGraphics());
         calificar.setEnabled(false);
-
         if(counter2<=palabras2){
-          if(counter2==0|counter2==1){
-            System.out.println("probando que es esto");
-          }else{
-
-          }
-        }else{
-          //subirnivel
           if(modelWords.verificarPasoNivel(aciertosp, nombreUsario)){
             fileManager.modificarNivel(nombreUsario);
             JOptionPane.showMessageDialog(null,"GANASTE!! HAS PASADO DE NIVEL");
@@ -285,6 +278,14 @@ public class GUI extends JFrame {
             GUI.this.errores.setText("Errores: ");
             GUI.this.errores.setText("Aciertos: ");
           }
+          if(counter2==0|counter2==1){
+            System.out.println("probando que es esto");
+          }else{
+
+          }
+        }else{
+          //subirnivel
+
 
           verificar.stop();
           iniciar.stop();

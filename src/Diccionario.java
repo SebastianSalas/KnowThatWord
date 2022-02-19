@@ -7,6 +7,7 @@ public class Diccionario {
   public static ArrayList<String> diccionario = new ArrayList<String>();
   private static ArrayList<String> palabrasRepetidas = new ArrayList<String>();
   private static ArrayList<String> validarPalabras = new ArrayList<String>() ;
+  private static ArrayList<String> salidaRepetir = new ArrayList<String>() ;
   private static String pal = new String();
   //private String pal2 = new String();
   private static String pal3 = new String();
@@ -32,14 +33,13 @@ public class Diccionario {
   public static ArrayList  getFraseCalifi(){
     Random aleatorio = new Random();
     validarPalabras=(ArrayList<String>)palabrasRepetidas.clone();
-    while (validarPalabras.size()<20) {
+    while (validarPalabras.size()<validarPalabras.size()*2) {
       do {
         pal = diccionario.get(aleatorio.nextInt(diccionario.size()));
       } while (validarPalabras.contains(pal));
       validarPalabras.add(pal);
     }
     Collections.shuffle(validarPalabras);
-    System.out.println("Arreglo de palabras"+validarPalabras);
     return validarPalabras;
 
   }
@@ -51,9 +51,11 @@ public class Diccionario {
       getFraseCalifi();
       i=i+1;
     }
-
-    System.out.println("arreglo de frase "+validarPalabras);
     pal = validarPalabras.get(aleatorio.nextInt(validarPalabras.size()));
+    do {
+      pal = validarPalabras.get(aleatorio.nextInt(validarPalabras.size()));
+    }while(salidaRepetir.contains(pal));
+    System.out.println("Palabra que se muestra: "+pal);
     return pal;
   }
 
