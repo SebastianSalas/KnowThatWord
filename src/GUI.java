@@ -256,11 +256,13 @@ public class GUI extends JFrame {
           iniciar.stop();
           System.out.println("parar 2");
           if(aciertos>=aciertosp&&counter2==(palabras2)){
-            palabra.verificarPasoNivel(aciertosp, nombreUsario);
             fileManager.modificarNivel(nombreUsario);
             JOptionPane.showMessageDialog(null,"GANASTE!! HAS PASADO DE NIVEL");
+            palabra.clearMethod();
             GUI.this.errores.setText("Errores: ");
             GUI.this.aciertos.setText("Aciertos: ");
+            errores=0;
+            aciertos=0;
             ver=0;
             counter=0;
             counter2=0;

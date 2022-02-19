@@ -20,11 +20,6 @@ public class PanelFrase extends JPanel {
     return this.i;
   }
 
-  public void dibujarParte(){
-    step++;
-    repaint();
-  }
-
   @Override
   protected void paintComponent(Graphics g) {
 

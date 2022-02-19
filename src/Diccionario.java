@@ -9,9 +9,7 @@ public class Diccionario {
   private static ArrayList<String> validarPalabras = new ArrayList<String>() ;
   private static ArrayList<String> salidaRepetir = new ArrayList<String>() ;
   private static String pal = new String();
-  //private String pal2 = new String();
   private FileManager fileManager;
-  private static String pal3 = new String();
   private static int i=0;
 
 
@@ -34,6 +32,7 @@ public class Diccionario {
   public static ArrayList  getFraseCalifi(){
     Random aleatorio = new Random();
     validarPalabras=(ArrayList<String>)palabrasRepetidas.clone();
+    System.out.println("getFraseCalifi: "+ validarPalabras);
     int palabras = validarPalabras.size()*2;
     while (validarPalabras.size()<palabras) {
       do {
@@ -49,10 +48,12 @@ public class Diccionario {
 
   public static String setFrase(){
     Random aleatorio = new Random();
+    System.out.println("Arreglo de palabras q se muestra: "+validarPalabras);
+    System.out.println("Arreglo de palabras para que no se repitan: "+salidaRepetir);
     if(i==0){
-      System.out.println(i);
-      getFraseCalifi();
-      i=i+1;
+      System.out.println("si se muestra esta chimbada? "+i);
+      System.out.println("método : "+getFraseCalifi());
+      i++;
     }
     pal = validarPalabras.get(aleatorio.nextInt(validarPalabras.size()));
     do {
@@ -75,54 +76,11 @@ public class Diccionario {
     return esCorrecta;
   }
 
-
-  public boolean verificarPasoNivel(int aciertosp, String usuario) {
-    fileManager = new FileManager();
-    int nivel=fileManager.buscarNivel(usuario);
-    boolean pasoNivel= false;
-    switch(nivel){
-      case 1: if(aciertosp>7) {
-        pasoNivel= true;
-      }
-        break;
-      case 2: if(aciertosp>=14) {
-        pasoNivel= true;
-      }
-        break;
-      case 3: if(aciertosp>=19) {
-        pasoNivel= true;
-      }
-        break;
-      case 4: if(aciertosp>=24) {
-        pasoNivel= true;
-      }
-        break;
-      case 5: if(aciertosp>=28) {
-        pasoNivel= true;
-      }
-        break;
-      case 6: if(aciertosp>=34) {
-        pasoNivel= true;
-      }
-        break;
-      case 7: if(aciertosp>=45) {
-        pasoNivel= true;
-      }
-        break;
-      case 8: if(aciertosp>=54) {
-        pasoNivel= true;
-      }
-        break;
-      case 9: if(aciertosp>=67) {
-        pasoNivel= true;
-      }
-        break;
-      case 10: if(aciertosp==100) {
-        pasoNivel= true;
-      }
-        break;
-    }
-    return pasoNivel;
+  public static void clearMethod(){
+    palabrasRepetidas.clear();
+    validarPalabras.clear();
+    salidaRepetir.clear();
+    i=0;
   }
 
 }
