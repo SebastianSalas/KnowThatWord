@@ -47,14 +47,6 @@ public class Diccionario {
 
   }
 
-  public void Limpiar(){
-    if(!validarPalabras.isEmpty()|!palabrasRepetidas.isEmpty()|!salidaRepetir.isEmpty()){
-      validarPalabras.remove(validarPalabras.size()-1);
-      palabrasRepetidas.remove(palabrasRepetidas.size()-1);
-      salidaRepetir.remove(salidaRepetir.size()-1);
-    }
-  }
-
   public static String setFrase(){
     Random aleatorio = new Random();
     if(i==0){

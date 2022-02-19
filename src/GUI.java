@@ -22,16 +22,18 @@ public class GUI extends JFrame {
   public static String nombreUsario,p="";
   private ImageIcon fondos;
   private JLabel textoUsuario,aciertos,errores;
-  private JButton salir,jugar,bien,mal,calificar,ayuda;
+  private JButton salir,jugar,bien,mal,ayuda;
   private Escucha escucha;
   private Timer timer,iniciar,verificar;
   private Diccionario palabra= new Diccionario();
   public int nivel,palabras,ver,palabras2;
   private ModelWords modelWords;
-  private String MENSAJE_INICIO = "El juego trata de probar tu memoria\n" +
-          "Se te presentaran cierto numero de palabras, las cuales tendrás 5 segundos en pantalla"+"\nluego desaparece y aparece la siguiente, debes memorizar las  palabras que mas puedas.\n" +"Despues de esto, se te presentara un listado con el doble de palabras que se mostraron y por cada palabra debes indicar \n" +
-          "si la palabras estaba o no contenida en el listado a memorizar y tendras 7 segundos\n" +
-          "para responder, en caso de no hacerlo se tomara como un error";
+  private String MENSAJE_INICIO = "I Know That Word es un juego que probara tu memoria.\n" +
+          "Te presentaremos un numero aleatorio de palabras, las cuales tendrás 5 segundos en pantalla por cada una."+"\n" +"Luego, te presentaremos un listado con el doble de palabras que se mostraron y por cada palabra debes indicar,\n" +
+          "si la palabra estaba o no en las palabras que te mostramos anteriormente, solo tendras 7 segundos por palabra.\n" +
+          "Pasaras el nivel cuando validemos que cumpliste con el porcentaje de aciertos requeridos.\n"+"\n"+
+          "Contara como acierto si seleccionas SI y la palabra estaba contenida o si seleccionas NO y la palabra no estaba contenida.\n"+
+          "Contara como error si seleccionas SI y la palabra no estaba contenida o si seleccionas NO y la palabra si estaba contenida.";
   /**
    * Constructor of GUI class
    */
@@ -90,8 +92,6 @@ public class GUI extends JFrame {
     bien.setEnabled(false);
     mal= new JButton("No");
     mal.setEnabled(false);
-    calificar =new JButton ("Calificar");
-    calificar.setEnabled(false);
     salir = new JButton();
     ImageIcon img1=new ImageIcon("src/resources/power.png");
     salir.setIcon(img1);
@@ -110,13 +110,11 @@ public class GUI extends JFrame {
     botoncitos.add(aciertos);
     botoncitos.add(bien);
     botoncitos.add(jugar);
-    //botoncitos.add(calificar);
     botoncitos.add(mal);
     botoncitos.add(errores);
     botoncitos.add(salir);
     bien.addActionListener(escucha);
     mal.addActionListener(escucha);
-    calificar.addActionListener(escucha);
     jugar.addActionListener(escucha);
     add(botoncitos, BorderLayout.PAGE_END);
 
@@ -161,8 +159,6 @@ public class GUI extends JFrame {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
-
 
       if(e.getSource()==jugar){
         iniciar.start();
@@ -235,10 +231,8 @@ public class GUI extends JFrame {
           mal.setEnabled(true);
           bien.setEnabled(true);
           jugar.setEnabled(false);
-          calificar.setEnabled(true);
           frase.setStep(3);
           frase.paintComponent(getGraphics());
-
           JOptionPane.showMessageDialog(null,"Veamos si las memorizaste");
           verificar.start();
           ver=2;
@@ -246,22 +240,12 @@ public class GUI extends JFrame {
       }else{
         iniciar.start();
       }
-      /*
-        if(e.getSource()==calificar){
-        verificar.start();
-        iniciar.stop();
-        System.out.println("INICIANDO 2");
-            }
-      */
-
-
       if(e.getSource()==verificar&&ver==2){
         frase.setI(counter2);
         System.out.println(counter2);
         counter2++;
         frase.setStep(4);
         frase.paintComponent(getGraphics());
-        calificar.setEnabled(false);
         System.out.println(counter2);
         if(counter2<palabras2){
           if(counter2==0|counter2==1){
@@ -282,11 +266,9 @@ public class GUI extends JFrame {
             counter2=0;
             iniciar.stop();
             verificar.stop();
-            palabra.Limpiar();
             mal.setEnabled(false);
             bien.setEnabled(false);
             jugar.setEnabled(true);
-            calificar.setEnabled(false);
             frase.setStep(2);
             frase.paintComponent(getGraphics());
             textoUsuario.setText("Usuario: " + nombreUsario +"       "+ " Nivel: " + fileManager.buscarNivel(nombreUsario));
