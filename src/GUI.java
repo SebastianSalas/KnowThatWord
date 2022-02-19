@@ -262,12 +262,13 @@ public class GUI extends JFrame {
              */
       if(e.getSource()==verificar&&ver==2){
         frase.setI(counter2);
+        System.out.println(counter2);
         counter2++;
         frase.setStep(4);
         frase.paintComponent(getGraphics());
         calificar.setEnabled(false);
         if(counter2<=palabras2){
-          if(modelWords.verificarPasoNivel(aciertosp, nombreUsario)){
+          if(palabra.verificarPasoNivel(aciertosp, nombreUsario)){
             fileManager.modificarNivel(nombreUsario);
             JOptionPane.showMessageDialog(null,"GANASTE!! HAS PASADO DE NIVEL");
             iniciar.stop();

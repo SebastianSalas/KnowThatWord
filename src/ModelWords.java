@@ -19,7 +19,7 @@ public class ModelWords {
     }
 
     public boolean verificarPasoNivel(int aciertosp, String usuario) {
-        fileManager = new FileManager();
+
         fileManager.buscarNivel(usuario);
         boolean pasoNivel= false;
         switch(nivel){

@@ -10,6 +10,7 @@ public class Diccionario {
   private static ArrayList<String> salidaRepetir = new ArrayList<String>() ;
   private static String pal = new String();
   //private String pal2 = new String();
+  private FileManager fileManager;
   private static String pal3 = new String();
   private static int i=0;
 
@@ -33,7 +34,8 @@ public class Diccionario {
   public static ArrayList  getFraseCalifi(){
     Random aleatorio = new Random();
     validarPalabras=(ArrayList<String>)palabrasRepetidas.clone();
-    while (validarPalabras.size()<validarPalabras.size()*2) {
+    int palabras = validarPalabras.size()*2;
+    while (validarPalabras.size()<palabras) {
       do {
         pal = diccionario.get(aleatorio.nextInt(diccionario.size()));
       } while (validarPalabras.contains(pal));
@@ -55,6 +57,7 @@ public class Diccionario {
     do {
       pal = validarPalabras.get(aleatorio.nextInt(validarPalabras.size()));
     }while(salidaRepetir.contains(pal));
+    salidaRepetir.add(pal);
     System.out.println("Palabra que se muestra: "+pal);
     return pal;
   }
@@ -71,5 +74,54 @@ public class Diccionario {
     return esCorrecta;
   }
 
+
+  public boolean verificarPasoNivel(int aciertosp, String usuario) {
+    fileManager = new FileManager();
+    int nivel=fileManager.buscarNivel(usuario);
+    boolean pasoNivel= false;
+    switch(nivel){
+      case 1: if(aciertosp>7) {
+        pasoNivel= true;
+      }
+        break;
+      case 2: if(aciertosp>=14) {
+        pasoNivel= true;
+      }
+        break;
+      case 3: if(aciertosp>=19) {
+        pasoNivel= true;
+      }
+        break;
+      case 4: if(aciertosp>=24) {
+        pasoNivel= true;
+      }
+        break;
+      case 5: if(aciertosp>=28) {
+        pasoNivel= true;
+      }
+        break;
+      case 6: if(aciertosp>=34) {
+        pasoNivel= true;
+      }
+        break;
+      case 7: if(aciertosp>=45) {
+        pasoNivel= true;
+      }
+        break;
+      case 8: if(aciertosp>=54) {
+        pasoNivel= true;
+      }
+        break;
+      case 9: if(aciertosp>=67) {
+        pasoNivel= true;
+      }
+        break;
+      case 10: if(aciertosp==100) {
+        pasoNivel= true;
+      }
+        break;
+    }
+    return pasoNivel;
+  }
 
 }
