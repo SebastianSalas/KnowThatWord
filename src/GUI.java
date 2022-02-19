@@ -166,6 +166,7 @@ public class GUI extends JFrame {
         System.out.println("INICIANDO");
         jugar.setEnabled(false);
         ver=1;
+        counter=0;
         switch (nivel){
           case 1:
             palabras=10;
@@ -275,6 +276,24 @@ public class GUI extends JFrame {
             frase.paintComponent(getGraphics());
             textoUsuario.setText("Usuario: " + nombreUsario +"       "+ " Nivel: " + fileManager.buscarNivel(nombreUsario));
 
+          }else{
+            JOptionPane.showMessageDialog(null,"PERDISTE!! VUELVE A EMPEZAR :(");
+            palabra.clearMethod();
+            GUI.this.errores.setText("Errores: ");
+            GUI.this.aciertos.setText("Aciertos: ");
+            errores=0;
+            aciertos=0;
+            ver=0;
+            counter=0;
+            counter2=0;
+            iniciar.stop();
+            verificar.stop();
+            mal.setEnabled(false);
+            bien.setEnabled(false);
+            jugar.setEnabled(true);
+            frase.setStep(2);
+            frase.paintComponent(getGraphics());
+            textoUsuario.setText("Usuario: " + nombreUsario +"       "+ " Nivel: " + fileManager.buscarNivel(nombreUsario));
           }
         }
       }else{
